@@ -3,6 +3,7 @@ import FilterSidebar from './../components/FilterSidebar';
 import Header from '../layouts/Header';
 import VideoGrid from '../components/VideoGrid';
 import { CirclePlus } from 'lucide-react';
+import AddVideoModal from '../components/videos/AddVideoModal/AddVideoModal';
 
 const Home: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -22,6 +23,7 @@ const Home: React.FC = () => {
                     <CirclePlus size={40} strokeWidth={3} className="absolute bottom-2 right-2 text-green-400 "  />
                 </div>
                 {/* Add Video Modal */}
+                <AddVideoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
 
             </div>
         </div>

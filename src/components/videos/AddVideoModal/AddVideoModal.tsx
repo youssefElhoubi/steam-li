@@ -12,7 +12,9 @@ const AddVideoModal: React.FC<Props> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   const handleSubmit = (data: VideoFormData) => {
-    console.log("New Video:", data);
+    const existingVideos = JSON.parse(localStorage.getItem('Videos') || '[]');
+    const updatedVideo = { ...data, id: new Date().getTime().toString() };
+    localStorage.setItem('Videos', JSON.stringify([...existingVideos, updatedVideo]));
     onClose();
   };
 

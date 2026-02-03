@@ -8,6 +8,6 @@ export type VideoFormData = {
     type: 'FILM' | 'SERIE' | 'DOCUMENTAIRE';
     category: string;
     rating: number;
-    director: string;
-    cast: string;
+    director?: string;
+    cast?: string;
 };
