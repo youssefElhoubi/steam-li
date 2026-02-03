@@ -6,7 +6,7 @@ const VideoStore = create((set) => ({
     addVideo: (newVideo: VideoFormData) => set((state: { videos: any[] }) => {
         const updatedVideos = [...state.videos, newVideo];
         localStorage.setItem('Videos', JSON.stringify(updatedVideos));
-        set({ videos: updatedVideos });
+        return { videos: updatedVideos };
     }),
     removeVideo: (videoId: string) => set((state: { videos: any[] }) => {
         const updatedVideos = state.videos.filter(video => video.id !== videoId);
