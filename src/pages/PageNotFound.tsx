@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NotFound = () => {
+const PageNotFound : React.FC = () => {
   return (
     <>
       <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-gray-100">
@@ -15,4 +15,4 @@ const NotFound = () => {
   )
 }
 
-export default NotFound
+export default PageNotFound
