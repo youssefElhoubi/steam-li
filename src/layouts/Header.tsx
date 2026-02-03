@@ -3,9 +3,9 @@ import { Menu, Home, Heart, User, Film } from 'lucide-react';
 import SideBarStore from '../store/SideBarStore';
 
 
-const Header: React.FC= () => {
+const Header: React.FC<{ Tab: string }> = ({ Tab }) => {
     // Simulating active route state
-    const [activeTab, setActiveTab] = useState('Home');
+    const [activeTab, setActiveTab] = useState(Tab);
     const toggleSidebar = SideBarStore((state:any) => state.toggleSidebar); 
     
 

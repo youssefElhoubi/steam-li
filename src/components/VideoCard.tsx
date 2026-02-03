@@ -5,7 +5,7 @@ export interface Video {
     id: string;
     title: string;
     description: string;
-    thumbnail: string;
+    thumbnailUrl: string;
     duration: string; // e.g., "1h 45m"
     releaseYear: number;
     type: 'FILM' | 'SERIE' | 'DOCUMENTAIRE';
@@ -20,7 +20,7 @@ const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
             {/* 1. THUMBNAIL AREA */}
             <div className="relative aspect-video overflow-hidden">
                 <img
-                    src={video.thumbnail}
+                    src={video.thumbnailUrl}
                     alt={video.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
