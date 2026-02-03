@@ -2,6 +2,7 @@ import { Film, X } from "lucide-react";
 import ModalWrapper from "./ModalWrapper";
 import VideoForm from "./VideoForm";
 import { type VideoFormData } from "../../../types/videoTypes"; 
+import VideoStore from "../../../store/vedioStore";
 
 interface Props {
   isOpen: boolean;
@@ -10,11 +11,11 @@ interface Props {
 
 const AddVideoModal: React.FC<Props> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
+  const addToVideoStor = VideoStore((state: any)=> state.addVideo)
 
   const handleSubmit = (data: VideoFormData) => {
-    const existingVideos = JSON.parse(localStorage.getItem('Videos') || '[]');
     const updatedVideo = { ...data, id: new Date().getTime().toString() };
-    localStorage.setItem('Videos', JSON.stringify([...existingVideos, updatedVideo]));
+    addToVideoStor(updatedVideo);
     onClose();
   };
 

@@ -39,7 +39,7 @@ const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
 
                 <div className="absolute top-2 right-2 flex items-center gap-1 bg-black/60 backdrop-blur-md px-1.5 py-0.5 rounded text-xs text-yellow-400 font-bold">
                     <Star size={12} fill="currentColor" />
-                    <span>{video.rating.toFixed(1)}</span>
+                    <span>{video.rating}</span>
                 </div>
 
                 {/* Play Button Overlay (Visible on Hover) */}
