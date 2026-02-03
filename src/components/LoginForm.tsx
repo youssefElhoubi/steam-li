@@ -25,6 +25,8 @@ const LoginForm: React.FC = () => {
             if (state === 'login') {
                 // Handle Login
                 const user = authService.login(data);
+                console.log(user);
+                
             } else {
                 // Handle Register
                 const signUpData = {
@@ -34,11 +36,9 @@ const LoginForm: React.FC = () => {
                     password: data.password
                 };
                 const newUser = authService.register(signUpData);
+                console.log(newUser);
+                
             }
-
-            // Redirect or update global state here
-            window.location.reload();
-
         } catch (error: any) {
             // Show error message (you could also set this to a local state)
             alert(error.message);
