@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { SubmitHandler } from 'react-hook-form';
 import { authService } from '../services/Loginservice';
+import { useNavigate } from 'react-router-dom';
 
 // Define the shape of your form data
 type FormInputs = {
@@ -12,6 +13,8 @@ type FormInputs = {
 
 const LoginForm: React.FC = () => {
     const [state, setState] = useState<'login' | 'register'>('login');
+    const [error, setError] = useState<string | null>(null);
+    const naviagtor = useNavigate();
 
     const {
         register,
@@ -37,11 +40,13 @@ const LoginForm: React.FC = () => {
                 };
                 const newUser = authService.register(signUpData);
                 console.log(newUser);
-                
+
             }
+            naviagtor('/home');
         } catch (error: any) {
             // Show error message (you could also set this to a local state)
             console.log(error);
+            setError(error.message);
             
         }
     };
@@ -112,6 +117,10 @@ const LoginForm: React.FC = () => {
                     />
                 </div>
                 {errors.password && <p className="text-red-400 text-xs text-left ml-4 mt-1">{errors.password.message}</p>}
+            </div>
+            <div
+                className="mt-2 min-h-[1.25rem]">
+                {error && <p className="text-red-400 text-xs text-left ml-4 mt-1">{error}</p>}
             </div>
 
             <div className="mt-4 text-left">
