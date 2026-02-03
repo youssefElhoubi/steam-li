@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import type {SubmitHandler} from 'react-hook-form';
+import type { SubmitHandler } from 'react-hook-form';
+import { authService } from '../services/Loginservice';
 
 // Define the shape of your form data
 type FormInputs = {
@@ -20,8 +21,28 @@ const LoginForm: React.FC = () => {
     } = useForm<FormInputs>();
 
     const onSubmit: SubmitHandler<FormInputs> = (data) => {
-        console.log("Form Data:", data);
-        // Handle logic for login or register here
+        try {
+            if (state === 'login') {
+                // Handle Login
+                const user = authService.login(data);
+            } else {
+                // Handle Register
+                const signUpData = {
+                    id: Date.now().toString(),
+                    name: data.name || '',
+                    email: data.email,
+                    password: data.password
+                };
+                const newUser = authService.register(signUpData);
+            }
+
+            // Redirect or update global state here
+            window.location.reload();
+
+        } catch (error: any) {
+            // Show error message (you could also set this to a local state)
+            alert(error.message);
+        }
     };
 
     const toggleState = () => {
