@@ -14,6 +14,7 @@ interface FilterInputs {
 const FilterSidebar: React.FC = () => {
     
     const isOpen = SideBarStore((state:any) => state.isOpen);
+    const toggleSidebar = SideBarStore((state:any) => state.toggleSidebar); 
 
     const { register, watch, handleSubmit } = useForm<FilterInputs>({
         defaultValues: {
@@ -29,7 +30,9 @@ const FilterSidebar: React.FC = () => {
 
     return (
         <>
+        
             {/* 3. THE SIDEBAR */}
+            {isOpen && (<div className='w-full h-screen bg-gray-600 absolute z-30' onClick={()=>toggleSidebar()} ></div>)}
             <aside className={`
         fixed top-0 left-0 z-50 h-screen bg-slate-900 text-white p-6 
         transition-transform duration-300 ease-in-out border-r border-white/10

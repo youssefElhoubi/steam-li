@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { Menu, Home, Heart, User, Film } from 'lucide-react';
+import SideBarStore from '../store/SideBarStore';
 
-interface HeaderProps {
-    toggleSidebar: () => void;
-}
 
-const Header: React.FC<HeaderProps> = ({ toggleSidebar }) => {
+const Header: React.FC= () => {
     // Simulating active route state
     const [activeTab, setActiveTab] = useState('Home');
+    const toggleSidebar = SideBarStore((state:any) => state.toggleSidebar); 
+    
 
     const navLinks = [
         { name: 'Home', icon: <Home size={18} /> },

@@ -5,7 +5,7 @@ import Header from '../layouts/Header';
 const Home : React.FC = () => {
     return (
         <div>
-            <Header toggleSidebar={() => {}} />
+            <Header />
             <FilterSidebar/>
         </div>
     )
