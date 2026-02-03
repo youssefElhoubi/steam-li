@@ -41,7 +41,8 @@ const LoginForm: React.FC = () => {
             }
         } catch (error: any) {
             // Show error message (you could also set this to a local state)
-            alert(error.message);
+            console.log(error);
+            
         }
     };
 
