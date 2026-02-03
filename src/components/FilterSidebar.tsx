@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Menu, X, Filter } from 'lucide-react';
+import { Filter } from 'lucide-react';
 import SideBarStore from '../store/SideBarStore';
 
 interface FilterInputs {
@@ -13,8 +13,8 @@ interface FilterInputs {
 
 const FilterSidebar: React.FC = () => {
     
-    const isOpen = SideBarStore((state:any) => state.isOpen);
-    const toggleSidebar = SideBarStore((state:any) => state.toggleSidebar); 
+    const isOpen = SideBarStore((state: any) => state.isOpen);
+    const toggleSidebar = SideBarStore((state: any) => state.toggleSidebar); 
 
     const { register, watch, handleSubmit } = useForm<FilterInputs>({
         defaultValues: {
@@ -30,28 +30,39 @@ const FilterSidebar: React.FC = () => {
 
     return (
         <>
-        
-            {/* 3. THE SIDEBAR */}
-            {isOpen && (<div className='w-full h-screen bg-gray-600 absolute z-30' onClick={()=>toggleSidebar()} ></div>)}
-            <aside className={`
-        fixed top-0 left-0 z-50 h-screen bg-slate-900 text-white p-6 
-        transition-transform duration-300 ease-in-out border-r border-white/10
-        w-72 
-        ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
-        md:translate-x-0 md:static md:block
-      `}>
+            {/* 1. OVERLAY (The Grey Background) 
+               - Added 'fixed inset-0' to ensure it covers the whole window regardless of scroll.
+               - Added 'md:hidden': This forces it to DISAPPEAR on desktop screens.
+            */}
+            {isOpen && (
+                <div 
+                    className='fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden' 
+                    onClick={() => toggleSidebar()} 
+                />
+            )}
 
-                {/* HEADER WITH CLOSE BUTTON */}
+            {/* 2. THE SIDEBAR 
+               - Mobile: 'fixed' (floats on top), 'z-50' (highest priority).
+               - Desktop: 'md:static' (sits inside the layout flow), 'md:z-auto'.
+            */}
+            <aside className={`
+                fixed top-0 left-0 z-50 h-screen bg-slate-900 text-white p-6 
+                transition-transform duration-300 ease-in-out border-r border-white/10
+                w-72 
+                ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+                md:translate-x-0 md:static md:block
+            `}>
+
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-2">
                         <Filter size={20} className="text-indigo-400" />
                         <h2 className="text-xl font-bold">Filters</h2>
                     </div>
-                
                 </div>
 
                 <form onChange={handleSubmit(onSubmit)} className="space-y-8 overflow-y-auto h-[calc(100vh-120px)] pr-2 custom-scrollbar">
-
+                    {/* ... (Your form content remains the same) ... */}
+                    
                     {/* CATEGORY */}
                     <section>
                         <h3 className="text-xs font-bold uppercase text-gray-500 mb-4 tracking-widest">Category</h3>
@@ -85,11 +96,7 @@ const FilterSidebar: React.FC = () => {
                         />
                     </section>
 
-                    {/* RESET BUTTON */}
-                    <button
-                        type="reset"
-                        className="w-full py-3 mt-4 text-sm font-medium text-gray-400 border border-white/10 rounded-xl hover:bg-white/5 hover:text-white transition-all"
-                    >
+                    <button type="reset" className="w-full py-3 mt-4 text-sm font-medium text-gray-400 border border-white/10 rounded-xl hover:bg-white/5 hover:text-white transition-all">
                         Clear All
                     </button>
                 </form>
