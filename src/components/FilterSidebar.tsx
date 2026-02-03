@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Menu, X, Filter } from 'lucide-react';
+import SideBarStore from '../store/SideBarStore';
 
 interface FilterInputs {
     categories: string[];
@@ -11,7 +12,8 @@ interface FilterInputs {
 }
 
 const FilterSidebar: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
+    
+    const isOpen = SideBarStore((state:any) => state.isOpen);
 
     const { register, watch, handleSubmit } = useForm<FilterInputs>({
         defaultValues: {
@@ -27,24 +29,6 @@ const FilterSidebar: React.FC = () => {
 
     return (
         <>
-            {/* 1. TRIGGER BUTTON (Floating) */}
-            {!isOpen && (
-                <button
-                    onClick={() => setIsOpen(true)}
-                    className="fixed top-4 left-4 z-50 p-3 bg-indigo-600 text-white rounded-full shadow-lg hover:bg-indigo-500 transition-all md:hidden"
-                >
-                    <Menu size={20} />
-                </button>
-            )}
-
-            {/* 2. OVERLAY (Darkens background when open on mobile) */}
-            {isOpen && (
-                <div
-                    className="fixed inset-0 bg-black/50 z-40 md:hidden backdrop-blur-sm"
-                    onClick={() => setIsOpen(false)}
-                />
-            )}
-
             {/* 3. THE SIDEBAR */}
             <aside className={`
         fixed top-0 left-0 z-50 h-screen bg-slate-900 text-white p-6 
@@ -60,12 +44,7 @@ const FilterSidebar: React.FC = () => {
                         <Filter size={20} className="text-indigo-400" />
                         <h2 className="text-xl font-bold">Filters</h2>
                     </div>
-                    <button
-                        onClick={() => setIsOpen(false)}
-                        className="p-1 hover:bg-white/10 rounded-md md:hidden"
-                    >
-                        <X size={24} />
-                    </button>
+                
                 </div>
 
                 <form onChange={handleSubmit(onSubmit)} className="space-y-8 overflow-y-auto h-[calc(100vh-120px)] pr-2 custom-scrollbar">
