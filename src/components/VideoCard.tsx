@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play, Star, Clock, Calendar } from 'lucide-react';
+import { Play, Star, Clock, Calendar, ClipboardClock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 export interface Video {
@@ -72,6 +72,7 @@ const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
                         <Calendar size={10} />
                         {video.releaseYear}
                     </span>
+                <ClipboardClock size={30} className="ml-1 text-indigo-400" />
                 </div>
 
                 <p className="text-xs text-indigo-300 mb-2 font-medium">
