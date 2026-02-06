@@ -14,7 +14,11 @@ const AddVideoModal: React.FC<Props> = ({ isOpen, onClose }) => {
   const addToVideoStor = VideoStore((state: any)=> state.addVideo)
 
   const handleSubmit = (data: VideoFormData) => {
-    const updatedVideo = { ...data, id: new Date().getTime().toString() };
+    const url = data.trailerUrl.split("/")[3];
+    const newUrl = `https://www.youtube.com/embed/${url}`;
+    console.log(newUrl);
+    
+    const updatedVideo = { ...data, id: new Date().getTime().toString(), trailerUrl: newUrl };
     addToVideoStor(updatedVideo);
     onClose();
   };
