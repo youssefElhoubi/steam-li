@@ -12,9 +12,9 @@ interface FilterInputs {
 }
 
 const FilterSidebar: React.FC = () => {
-    
+
     const isOpen = SideBarStore((state: any) => state.isOpen);
-    const toggleSidebar = SideBarStore((state: any) => state.toggleSidebar); 
+    const toggleSidebar = SideBarStore((state: any) => state.toggleSidebar);
 
     const { register, watch, handleSubmit } = useForm<FilterInputs>({
         defaultValues: {
@@ -30,21 +30,13 @@ const FilterSidebar: React.FC = () => {
 
     return (
         <>
-            {/* 1. OVERLAY (The Grey Background) 
-               - Added 'fixed inset-0' to ensure it covers the whole window regardless of scroll.
-               - Added 'md:hidden': This forces it to DISAPPEAR on desktop screens.
-            */}
             {isOpen && (
-                <div 
-                    className='fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden' 
-                    onClick={() => toggleSidebar()} 
+                <div
+                    className='fixed inset-0 z-40 bg-black/50 backdrop-blur-sm md:hidden'
+                    onClick={() => toggleSidebar()}
                 />
             )}
 
-            {/* 2. THE SIDEBAR 
-               - Mobile: 'fixed' (floats on top), 'z-50' (highest priority).
-               - Desktop: 'md:static' (sits inside the layout flow), 'md:z-auto'.
-            */}
             <aside className={`
                 fixed top-0 left-0 z-50 h-screen bg-slate-900 text-white p-6 
                 transition-transform duration-300 ease-in-out border-r border-white/10
@@ -62,7 +54,7 @@ const FilterSidebar: React.FC = () => {
 
                 <form onChange={handleSubmit(onSubmit)} className="space-y-8 overflow-y-auto h-[calc(100vh-120px)] pr-2 custom-scrollbar">
                     {/* ... (Your form content remains the same) ... */}
-                    
+
                     {/* CATEGORY */}
                     <section>
                         <h3 className="text-xs font-bold uppercase text-gray-500 mb-4 tracking-widest">Category</h3>
