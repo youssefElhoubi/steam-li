@@ -1,4 +1,5 @@
 export type VideoFormData = {
+    id : string;
     title: string;
     description: string;
     thumbnailUrl: string;

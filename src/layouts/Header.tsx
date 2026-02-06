@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { Menu, Home, Heart, User, Film } from 'lucide-react';
+import { Menu, Home, User, ClipboardClock } from 'lucide-react';
 import SideBarStore from '../store/SideBarStore';
+import { useNavigate } from 'react-router-dom';
 
 
 const Header: React.FC<{ Tab: string }> = ({ Tab }) => {
     // Simulating active route state
+    const navigator = useNavigate();
     const [activeTab, setActiveTab] = useState(Tab);
     const toggleSidebar = SideBarStore((state:any) => state.toggleSidebar); 
     
 
     const navLinks = [
         { name: 'Home', icon: <Home size={18} /> },
-        { name: 'Video Details', icon: <Film size={18} /> },
-        { name: 'Watchlist', icon: <Heart size={18} /> },
+        { name: 'Watchlist', icon: <ClipboardClock  size={18} /> },
         { name: 'Profile', icon: <User size={18} /> },
     ];
 
@@ -46,7 +47,10 @@ const Header: React.FC<{ Tab: string }> = ({ Tab }) => {
                     {navLinks.map((link) => (
                         <button
                             key={link.name}
-                            onClick={() => setActiveTab(link.name)}
+                            onClick={() => {
+                                setActiveTab(link.name);
+                                navigator(`/${link.name.toLowerCase()}`);
+                            }}
                             className={`
                 flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-300
                 ${activeTab === link.name

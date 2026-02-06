@@ -10,8 +10,6 @@ const VideoGrid: React.FC = () => {
     // 2. Get active filters
     const selectedCategories = useFilterStore((state) => state.categories);
     const durationFilter = useFilterStore((state) => state.duration);
-
-    // 3. COMPUTE VISIBLE VIDEOS (This does not delete data, just hides it)
     const filteredVideos = videos.filter((video) => {
         // Filter by Category
         if (selectedCategories.length > 0) {
@@ -23,7 +21,8 @@ const VideoGrid: React.FC = () => {
         // Filter by Duration (assuming video.duration is a string like "120")
         // You might need to parse your video.duration if it's a string like "2h 30m"
         // For this example, let's assume you handle the conversion
-        // if (parseInt(video.duration) > durationFilter) return false;
+        if (parseInt(video.duration) > durationFilter) return false;
+        
 
         return true; // Show video
     });

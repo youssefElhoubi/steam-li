@@ -1,7 +1,9 @@
 import React from 'react';
 import { Play, Star, Clock, Calendar } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface Video {
+    id: string;
     title: string;
     description: string;
     thumbnailUrl: string;
@@ -13,8 +15,13 @@ export interface Video {
 }
 
 const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
+    const navigator = useNavigate();
+
+    const handleCardClick = () => {
+        navigator(`/watch/${video.id}`);
+    };
     return (
-        <div className="group relative bg-slate-900 rounded-xl overflow-hidden border border-white/5 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300">
+        <div className="group relative bg-slate-900 rounded-xl overflow-hidden border border-white/5 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer" onClick={handleCardClick}>
 
             {/* 1. THUMBNAIL AREA */}
             <div className="relative aspect-video overflow-hidden">
