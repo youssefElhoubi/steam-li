@@ -118,6 +118,13 @@ const VideoForm: React.FC<Props> = ({ onSubmit, onCancel }) => {
                         placeholder="Action"
                         className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white outline-none"
                     />
+                    <select {...register("category")} className="w-full bg-slate-800 border border-slate-700 rounded-lg p-3 text-white outline-none">
+                        <option value="">Select Category</option>
+                        <option value="Action">Action</option>
+                        <option value="Comedy">Comedy</option>
+                        <option value="Drama">Drama</option>
+                        <option value="Sci-Fi">Sci-Fi</option>
+                    </select>
                     <div>
                         {errors.category && <p className="text-red-400 text-xs">{errors.category.message}</p>}
                     </div>
