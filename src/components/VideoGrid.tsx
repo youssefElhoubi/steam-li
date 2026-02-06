@@ -1,29 +1,50 @@
-import React, { useEffect } from 'react';
-import VideoCard, { type Video } from './VideoCard';
+import React from 'react';
+import VideoCard from './VideoCard';
 import VideoStore from '../store/vedioStore';
+import useFilterStore from '../store/useFilterStore'; // Import filter store
 
 const VideoGrid: React.FC = () => {
-    const videos = VideoStore((state: any) => state.videos);
-    useEffect(() => {
-        return () => {
-            
+    // 1. Get all videos
+    const videos = VideoStore((state) => state.videos);
+
+    // 2. Get active filters
+    const selectedCategories = useFilterStore((state) => state.categories);
+    const durationFilter = useFilterStore((state) => state.duration);
+
+    // 3. COMPUTE VISIBLE VIDEOS (This does not delete data, just hides it)
+    const filteredVideos = videos.filter((video) => {
+        // Filter by Category
+        if (selectedCategories.length > 0) {
+            if (!selectedCategories.includes(video.category)) {
+                return false; // Hide if category doesn't match
+            }
         }
-    }, [])
+
+        // Filter by Duration (assuming video.duration is a string like "120")
+        // You might need to parse your video.duration if it's a string like "2h 30m"
+        // For this example, let's assume you handle the conversion
+        // if (parseInt(video.duration) > durationFilter) return false;
+
+        return true; // Show video
+    });
 
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-indigo-600">
-                Trending Now
+                {selectedCategories.length > 0 ? `Filtered Results (${filteredVideos.length})` : 'All Videos'}
             </h2>
-            {videos === null || videos.length === 0 ? (
-                <p className="text-gray-400 text-center py-12">No videos available yet.</p>
-            ) : (
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                    {videos.map((video: Video) => (
-                        <VideoCard key={video.id} video={video} />
-                    ))}
-                </div>
-            )}
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                {filteredVideos.map((video) => (
+                    <VideoCard key={video.thumbnailUrl} video={video} />
+                ))}
+
+                {filteredVideos.length === 0 && (
+                    <p className="text-gray-400 col-span-full text-center py-10">
+                        No videos match your filters.
+                    </p>
+                )}
+            </div>
         </div>
     );
 };

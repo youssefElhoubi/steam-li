@@ -2,7 +2,6 @@ import React from 'react';
 import { Play, Star, Clock, Calendar } from 'lucide-react';
 
 export interface Video {
-    id: string;
     title: string;
     description: string;
     thumbnailUrl: string;

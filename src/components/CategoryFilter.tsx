@@ -4,7 +4,7 @@ import useFilterStore from '../store/useFilterStore';
 const AVAILABLE_CATEGORIES = ['Action', 'Comedy', 'Drama', 'Sci-Fi'];
 
 const CategoryFilter: React.FC = () => {
-    // Select only what we need to prevent unnecessary re-renders
+    // We only need the Filter Store here
     const selectedCategories = useFilterStore((state) => state.categories);
     const toggleCategory = useFilterStore((state) => state.toggleCategory);
 
