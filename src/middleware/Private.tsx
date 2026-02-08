@@ -7,38 +7,16 @@ type Props = {
 
 const Privet: React.FC<Props> = ({ Componnet }) => {
     const [isAuth, setIsAuth] = useState<boolean | null>(null);
-    const [token, setToken] = useState<string | null>("");
 
     useEffect(() => {
-        const localToken = localStorage.getItem("token");
-        if (localToken) {
-            setToken(localToken);
+        const storedToken = localStorage.getItem("active_user");
+        if (storedToken) {
+            setIsAuth(true);
         } else {
             setIsAuth(false);
         }
     }, []);
 
-    useEffect(() => {
-        if (!token) return;
-
-        const validateToken = async () => {
-            try {
-                const response = await fetch("http://tmpback.test/api/decode", {
-                    method: "POST",
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: token,
-                    },
-                });
-                setIsAuth(response.ok);
-            } catch (error) {
-                console.error("Validation error:", error);
-                setIsAuth(false);
-            }
-        };
-
-        validateToken();
-    }, [token]);
 
     if (isAuth === null) return <div>Loading...</div>;
 

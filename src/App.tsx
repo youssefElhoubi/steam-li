@@ -4,6 +4,7 @@ import PageNotFound from './pages/PageNotFound';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import WatchPage from './pages/watchPage';
+import Privet from './middleware/Private';
 
 
 function App() {
@@ -14,8 +15,9 @@ function App() {
         <Routes>
           <Route path="*" element={<PageNotFound/>} />
           <Route path="/" element={<Login/>} />
-          <Route path="/home" element={<Home/>} />
-          <Route path="/watch/:id" element={<WatchPage/>} />
+
+          <Route path="/home" element={<Privet Componnet={Home} />} />
+          <Route path="/watch/:id" element={<Privet Componnet={WatchPage} />} />
         </Routes>
       </BrowserRouter>
     </>
