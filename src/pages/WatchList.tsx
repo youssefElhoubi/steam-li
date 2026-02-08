@@ -5,11 +5,11 @@ import VideoGrid from '../components/VideoGrid';
 import { CirclePlus } from 'lucide-react';
 import AddVideoModal from '../components/videos/AddVideoModal/AddVideoModal';
 
-const Home: React.FC = () => {
+const WatchList: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div>
-            <Header Tab='Home'/>
+            <Header Tab='Watchlist'/>
             <div className="flex h-screen overflow-hidden bg-slate-950">
 
                 {/* Sidebar sits here. On Desktop it takes up space (static). On Mobile it floats (fixed). */}
@@ -17,9 +17,9 @@ const Home: React.FC = () => {
 
                 {/* Main Content: flex-1 makes it fill the remaining space */}
                 <main className="flex-1 overflow-y-auto relative w-full">
-                    <VideoGrid >
+                    <VideoGrid >``
                         <h2 className="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-indigo-600">
-                            Home
+                            Watchlist
                         </h2>
                     </VideoGrid>
                 </main>
@@ -34,4 +34,4 @@ const Home: React.FC = () => {
     )
 }
 
-export default Home
+export default WatchList
