@@ -4,20 +4,31 @@ import Header from '../layouts/Header';
 import VideoGrid from '../components/VideoGrid';
 import { CirclePlus } from 'lucide-react';
 import AddVideoModal from '../components/videos/AddVideoModal/AddVideoModal';
-import type { VideoFormData } from '../types/videoTypes';
+import VideoStore from '../store/vedioStore';
+
+
 
 const WatchList: React.FC = () => {
-    const [isOpen, setIsOpen] = useState(false);
-    const [watchlistVideos, setWatchlistVideos] = useState<VideoFormData[]>([]);
+const [isOpen, setIsOpen] = useState(false);
+    const [watchlistVideos, setWatchlistVideos] = useState<any[]>([]);
+
+    const videos = VideoStore((state) => state.videos);
+
     useEffect(() => {
-        const videos = localStorage.getItem('WatchList');
-        if (videos) {
-            setWatchlistVideos(JSON.parse(videos));
-        }
-    }, []);
+        if (!videos) return; // condition INSIDE effect, not outside
+
+        const stored = localStorage.getItem('WatchList');
+        const parsed = stored ? JSON.parse(stored) : [];
+
+        const filtered = videos.filter((v) =>
+            parsed.some((w) => w.videoId === v.id)
+        );
+
+        setWatchlistVideos(filtered);
+    }, [videos]);
     return (
         <div>
-            <Header Tab='Watchlist'/>
+            <Header Tab='Watchlist' />
             <div className="flex h-screen overflow-hidden bg-slate-950">
 
                 {/* Sidebar sits here. On Desktop it takes up space (static). On Mobile it floats (fixed). */}
@@ -31,8 +42,8 @@ const WatchList: React.FC = () => {
                         </h2>
                     </VideoGrid>
                 </main>
-                <div className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-600 " title='add video' onClick={()=> setIsOpen(!isOpen)}>
-                    <CirclePlus size={40} strokeWidth={3} className="absolute bottom-2 right-2 text-green-400 "  />
+                <div className="absolute bottom-0 left-0 right-0 h-1 bg-indigo-600 " title='add video' onClick={() => setIsOpen(!isOpen)}>
+                    <CirclePlus size={40} strokeWidth={3} className="absolute bottom-2 right-2 text-green-400 " />
                 </div>
                 {/* Add Video Modal */}
                 <AddVideoModal isOpen={isOpen} onClose={() => setIsOpen(false)} />
