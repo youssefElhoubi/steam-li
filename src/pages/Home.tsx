@@ -4,9 +4,11 @@ import Header from '../layouts/Header';
 import VideoGrid from '../components/VideoGrid';
 import { CirclePlus } from 'lucide-react';
 import AddVideoModal from '../components/videos/AddVideoModal/AddVideoModal';
+import VideoStore from '../store/vedioStore';
 
 const Home: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const videos = VideoStore((state) => state.videos);
     return (
         <div>
             <Header Tab='Home'/>
@@ -17,7 +19,7 @@ const Home: React.FC = () => {
 
                 {/* Main Content: flex-1 makes it fill the remaining space */}
                 <main className="flex-1 overflow-y-auto relative w-full">
-                    <VideoGrid >
+                    <VideoGrid videos={videos}>
                         <h2 className="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-indigo-600">
                             Home
                         </h2>

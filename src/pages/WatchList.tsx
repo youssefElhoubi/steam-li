@@ -1,12 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import FilterSidebar from './../components/FilterSidebar';
 import Header from '../layouts/Header';
 import VideoGrid from '../components/VideoGrid';
 import { CirclePlus } from 'lucide-react';
 import AddVideoModal from '../components/videos/AddVideoModal/AddVideoModal';
+import type { VideoFormData } from '../types/videoTypes';
 
 const WatchList: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const [watchlistVideos, setWatchlistVideos] = useState<VideoFormData[]>([]);
+    useEffect(() => {
+        const videos = localStorage.getItem('WatchList');
+        if (videos) {
+            setWatchlistVideos(JSON.parse(videos));
+        }
+    }, []);
     return (
         <div>
             <Header Tab='Watchlist'/>
@@ -17,7 +25,7 @@ const WatchList: React.FC = () => {
 
                 {/* Main Content: flex-1 makes it fill the remaining space */}
                 <main className="flex-1 overflow-y-auto relative w-full">
-                    <VideoGrid >``
+                    <VideoGrid videos={watchlistVideos}>
                         <h2 className="text-2xl font-bold text-white mb-6 pl-2 border-l-4 border-indigo-600">
                             Watchlist
                         </h2>
