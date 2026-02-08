@@ -1,11 +1,12 @@
 import React from 'react';
-import { Play, Star, Clock, Calendar } from 'lucide-react';
+import { Play, Star, Clock, Calendar, ClipboardClock } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 export interface Video {
     id: string;
     title: string;
     description: string;
-    thumbnail: string;
+    thumbnailUrl: string;
     duration: string; // e.g., "1h 45m"
     releaseYear: number;
     type: 'FILM' | 'SERIE' | 'DOCUMENTAIRE';
@@ -14,13 +15,18 @@ export interface Video {
 }
 
 const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
+    const navigator = useNavigate();
+
+    const handleCardClick = () => {
+        navigator(`/watch/${video.id}`);
+    };
     return (
-        <div className="group relative bg-slate-900 rounded-xl overflow-hidden border border-white/5 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300">
+        <div className="group relative bg-slate-900 rounded-xl overflow-hidden border border-white/5 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-500/10 transition-all duration-300 cursor-pointer" onClick={handleCardClick}>
 
             {/* 1. THUMBNAIL AREA */}
             <div className="relative aspect-video overflow-hidden">
                 <img
-                    src={video.thumbnail}
+                    src={video.thumbnailUrl}
                     alt={video.title}
                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                 />
@@ -66,6 +72,7 @@ const VideoCard: React.FC<{ video: Video }> = ({ video }) => {
                         <Calendar size={10} />
                         {video.releaseYear}
                     </span>
+                <ClipboardClock size={30} className="ml-1 text-indigo-400" />
                 </div>
 
                 <p className="text-xs text-indigo-300 mb-2 font-medium">

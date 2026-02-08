@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     return (
         <div>
-            <Header />
+            <Header Tab='Home'/>
             <div className="flex h-screen overflow-hidden bg-slate-950">
 
                 {/* Sidebar sits here. On Desktop it takes up space (static). On Mobile it floats (fixed). */}
